@@ -284,4 +284,4 @@ if(error_2>error_1):
   print(f"More error using KNN {error_2}")
 if(error_1==error_2):
   print(f"Same error for both which is {error_1}")
-print("The value of error depends on dataset size and split since  since it was specified we have done it in our way")
+print("The value of error depends on dataset size and split for training and testing since it was specified we have done it in our way")
