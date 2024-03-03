@@ -9,6 +9,7 @@ class_1_cov = np.array([[0.8, 0.4], [0.4, 0.8]])
 class_2_cov = np.array([[0.8, -0.6], [-0.6, 0.8]])
 X_class_1 = np.random.multivariate_normal(class_1_mean, class_1_cov, num_samples)
 X_class_2 = np.random.multivariate_normal(class_2_mean, class_2_cov, num_samples)
+# Combine data and create labels
 X_train = np.vstack((X_class_1, X_class_2))
 y_train = np.hstack((np.zeros(num_samples), np.ones(num_samples)))
 # spliting the dataset into test and train in ration 80:20
@@ -17,7 +18,7 @@ y_train_split = np.hstack((np.zeros(num_samples-20), np.ones(num_samples-20)))
 X_test=np.vstack((X_class_1[80:], X_class_2[80:]))
 y_test_split = np.hstack((np.zeros(20), np.ones(20)))
 
-# Scatter plot
+# # Scatter plot to visualize the generated data
 plt.scatter(X_class_1[:, 0], X_class_1[:, 1], label='Class 1', marker='o')
 plt.scatter(X_class_2[:, 0], X_class_2[:, 1], label='Class 2', marker='x')
 # plot for class 1 and class 2
@@ -28,9 +29,8 @@ plt.legend()
 plt.show()
 
 # to learn k we are using minimum error approach at which k error is minimum
-import numpy as np
-import matplotlib.pyplot as plt
 # below is the algotrithm for KNN Classifier
+# K Nearest Neighbors (KNN) Classifier
 def KNN_Classifier(X_train_split,X_test,y_train_split,k):
     # this will store distance of k nearest point
     y_test=[]
@@ -68,7 +68,7 @@ def error_loss(y_test_split,y_pred):
   min_loss=min/len(y_test_split)
   return min_loss
 
-
+#iterating for finding k for minimum error
 error=float('inf')
 k=1
 # below algorithmn will train k for KNN classifier
@@ -83,10 +83,12 @@ for i in range(1,160):
   else:
     # print("error is too high")
     continue
+  #results for the KNN classifier
 print('Below is results on KNN classifier for gaussians distribution')
 print(f'The value of k for minimum loss is {k}')
 print(f'The value of Mean Square Error for k {k} is {error}')
 
+# decision boundary for KNN classifier
 result = KNN_Classifier(X_train_split, X_test, y_train_split,k)
 print("Predicted Labels:", result)
 x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
@@ -104,6 +106,9 @@ plt.ylabel('Feature 2')
 plt.title('K Nearest Neighbors (KNN) Classifier with Decision Boundary')
 plt.legend()
 plt.show()
+
+#lwp
+
 # Negative mean function that is for level 0
 def negative_mean(X_train_split):
        mean=[0,0]
@@ -132,7 +137,7 @@ def learning_with_prototype(X_train_split,X_test):
                   y_pred.append(0)
           return np.array(y_pred)
 y_pred=learning_with_prototype(X_train_split,X_test)
-error=error_loss(y_test_split,y_pred)
+error=error_loss(y_test_split,y_pred)#we are using same error function which is used earlier for knn i.e error_loss
 print('Below is results on lwp for gaussians distribution')
 print(f"The Mean Square Error for learning with prototye is {error}")
 result = learning_with_prototype(X_train_split, X_test)
@@ -243,10 +248,12 @@ Y_test=np.hstack((np.zeros(2),np.ones(3)))
 def learning_with_prototype_tshirt(X_train,X_test):
           y_pred=[]
           d1=[0,0]
+          #defining positive mean for lwp
           for i in range(0,5):
             d1+=X_train[i]
           d1=d1/5
           d2=[0,0]
+          #defining negative mean for lwp
           for i in range(5,13):
             d2+=X_train[i]
           d2=d2/8
@@ -277,11 +284,11 @@ for i in range(1,14):
     continue
 
 print(f'The value of k for minimum loss is {k}')
-print(f'The MSE for KNN is {error}')
+print(f'The MSE for KNN is {error_2}')
 if(error_1>error_2):
   print(f"More error using Learning with prototype {error_1}")
-if(error_2>error_1):
+elif(error_2>error_1):
   print(f"More error using KNN {error_2}")
-if(error_1==error_2):
+else:
   print(f"Same error for both which is {error_1}")
 print("The value of error depends on dataset size and split for training and testing since it was specified we have done it in our way")
