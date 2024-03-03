@@ -284,3 +284,4 @@ if(error_2>error_1):
   print(f"More error using KNN {error_2}")
 if(error_1==error_2):
   print(f"Same error for both which is {error_1}")
+print("The value of error depends on dataset size and split since here there is 7 from class M which we have considered 0 and 11 from L that is 1 so only 5 we used to train from class 0 and 8 from class 1")
