@@ -37,7 +37,7 @@ def KNN_Classifier(X_train_split,X_test,y_train_split,k):
     for j in X_test:
          dist=[]
          label_index=[] # it will return index value corresponding to k nearest neighbour
-         # intitialising the initial distance to infinity
+         # intialising the initial distance to infinity
          for i in range(0,k):
            dist.append(float('inf'))
            label_index.append(-1)
@@ -93,7 +93,7 @@ result = KNN_Classifier(X_train_split, X_test, y_train_split,k)
 print("Predicted Labels:", result)
 x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
 y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.2), np.arange(y_min, y_max, 0.2))
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02))
 
 Z = KNN_Classifier(X_train_split,np.c_[xx.ravel(), yy.ravel()],y_train_split,k)
 Z = Z.reshape(xx.shape)
@@ -144,7 +144,7 @@ result = learning_with_prototype(X_train_split, X_test)
 print("Predicted Labels:", result)
 x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
 y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
-xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.2), np.arange(y_min, y_max, 0.2))
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02))
 
 Z = learning_with_prototype(X_train_split,np.c_[xx.ravel(), yy.ravel()])
 Z = Z.reshape(xx.shape)
@@ -274,9 +274,7 @@ k=1
 
 for i in range(1,14):
   y_pred_2=KNN_Classifier(X_train,X_test,Y_train,i)
-  # print(y_pred)
   e=error_loss(Y_test,y_pred_2)
-  # print(e)
   if(e<=error_2):
     error_2=e
     k=i
