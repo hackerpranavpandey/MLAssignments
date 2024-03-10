@@ -29,7 +29,7 @@ plt.legend()
 plt.show()
 
 # to learn k we are using minimum error approach at which k error is minimum
-# below is the algotrithm for KNN Classifier
+# below is the algorithm for KNN Classifier
 # K Nearest Neighbors (KNN) Classifier
 def KNN_Classifier(X_train_split,X_test,y_train_split,k):
     # this will store distance of k nearest point
@@ -183,7 +183,6 @@ for i in range(1,160):
     error=e
     k=i
   else:
-    # print("error is too high")
     continue
 print("Below is result on KNN classification for chi-square")
 print(f'The value of k for minimum loss is {k}')
@@ -268,10 +267,8 @@ y_pred_1=learning_with_prototype_tshirt(X_train,X_test)
 error_1=error_loss(Y_test,y_pred_1)
 print('Kaggle dataset on TShirt size')
 print(f"The MSE using learning with protyotype {error_1}")
-
 error_2=float('inf')
 k=1
-
 for i in range(1,14):
   y_pred_2=KNN_Classifier(X_train,X_test,Y_train,i)
   e=error_loss(Y_test,y_pred_2)
@@ -290,3 +287,40 @@ elif(error_2>error_1):
 else:
   print(f"Same error for both which is {error_1}")
 print("The value of error depends on dataset size and split for training and testing since it was specified we have done it in our way")
+##plots for kaggle dataset for KNN classifier
+result = KNN_Classifier(X_train, X_test ,Y_train,k)
+print("Predicted Labels:", result)
+x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
+y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02))
+
+Z = KNN_Classifier(X_train,np.c_[xx.ravel(), yy.ravel()],Y_train,k)
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.5)
+
+plt.scatter(X_test[:, 0], X_test[:, 1], c=result, cmap='viridis', marker='x', s=100, linewidths=2, label='Predicted Labels')
+
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('K Nearest Neighbors (KNN) Classifier with Decision Boundary')
+plt.legend()
+plt.show()
+
+##plot for kaggle dataset for lwp
+result = learning_with_prototype_tshirt(X_train, X_test)
+print("Predicted Labels:", result)
+x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
+y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02), np.arange(y_min, y_max, 0.02))
+
+Z = KNN_Classifier(X_train,np.c_[xx.ravel(), yy.ravel()],y_train,k)
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, alpha=0.5)
+
+plt.scatter(X_test[:, 0], X_test[:, 1], c=result, cmap='viridis', marker='x', s=100, linewidths=2, label='Predicted Labels')
+
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('K Nearest Neighbors (KNN) Classifier with Decision Boundary')
+plt.legend()
+plt.show()
